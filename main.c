@@ -7,8 +7,7 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Rhydon");
  
 static int driver_init(void)
-{
-
+{	
 	printk(KERN_ALERT "hello...\n");
 	return 0;
 }

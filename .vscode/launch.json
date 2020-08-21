@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "Debug with qemu using gdb",
+            "executable": "~/workspace/buildroot-2020.02.4/output/build/linux-4.19.91/vmlinux",
+            "target": ":1234",
+            "remote": true,
+            "cwd": "${workspaceRoot}",
+            "valuesFormatting": "parseText",
+            "preLaunchTask": ""
+        }
+    ]
+}

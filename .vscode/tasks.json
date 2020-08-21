@@ -1,0 +1,58 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "clean",
+			"command": "/usr/bin/make",
+			"args": ["clean"],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+		},{
+			"type": "shell",
+			"label": "build release using make",
+			"command": "/usr/bin/make",
+			"args": ["release"],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+		},{
+			"type": "shell",
+			"label": "build debug using make",
+			"command": "/usr/bin/make",
+			"args": ["debug"],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+                "kind": "build",
+                "isDefault": true
+            }
+		},
+		{
+			"type": "shell",
+			"label": "preDebug setup",
+			"command": "bash",
+			"args": ["-c", "debug.sh"],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"dependsOn": [
+				"build debug using make"
+			]
+		}
+	]
+}
