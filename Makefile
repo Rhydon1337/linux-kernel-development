@@ -13,5 +13,4 @@ debug:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
-	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
 	rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions debug
