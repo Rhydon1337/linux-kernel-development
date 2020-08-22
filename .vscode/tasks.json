@@ -42,8 +42,9 @@
 		{
 			"type": "shell",
 			"label": "preDebug setup",
-			"command": "bash",
-			"args": ["-c", "debug.sh"],
+			"isBackground": true,
+			"command": "/bin/bash",
+			"args": ["-c", "sudo ./debug.sh"],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},

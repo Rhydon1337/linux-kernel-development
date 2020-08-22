@@ -5,12 +5,13 @@
             "type": "gdb",
             "request": "attach",
             "name": "Debug with qemu using gdb",
-            "executable": "~/workspace/buildroot-2020.02.4/output/build/linux-4.19.91/vmlinux",
+            "executable": "/home/rhydon/workspace/buildroot-2020.02.4/output/build/linux-4.19.91/vmlinux",
             "target": ":1234",
             "remote": true,
+            "autorun": ["c"],
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText",
-            "preLaunchTask": ""
+            "preLaunchTask": "preDebug setup"
         }
     ]
 }
