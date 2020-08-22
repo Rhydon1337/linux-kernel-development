@@ -9,8 +9,9 @@ release:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
 debug:
-	CFLAGS=-g;
+	CFLAGS=-g -DDEBUG;
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
+ 	$(MAKE) $(MAKE) -C $(KERNELDIR) M=$(PWD) clean
 	rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions debug
