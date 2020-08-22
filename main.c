@@ -16,6 +16,6 @@ static void driver_exit(void)
 {
 	printk(KERN_WARNING "bye ...\n");
 }
- 
+
 module_init(driver_init);
 module_exit(driver_exit);
