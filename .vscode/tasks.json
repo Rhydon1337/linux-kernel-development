@@ -49,7 +49,21 @@
 				"cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": [
-				"$gcc"
+				{
+				  "pattern": [
+					{
+					  "regexp": ".",
+					  "file": 1,
+					  "location": 2,
+					  "message": 3
+					}
+				  ],
+				  "background": {
+					"activeOnStart": true,
+					"beginsPattern": ".",
+					"endsPattern": ".",
+				  }
+				}
 			],
 			"dependsOn": [
 				"build debug using make"
