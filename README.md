@@ -32,8 +32,38 @@ I have choose vscode as my linux kernel development IDE. This project is coupled
 
 Before we start make sure you have everything that needed, if you already done the previous part make sure that you configured SSH too.
 
-1. Linux sources for your kernel version
-2. Compiled kernel image (bzImage) + rootfs
-3. Qemu vm with snapshot
-4. SSH to root configured
+* Linux sources for your kernel version
+* Compiled kernel image (bzImage) + rootfs
+* Qemu vm with snapshot
+* SSH to root configured
+
+Install vscode, after the installtion completed download this packages:
+
+* vscode-cpptools - support for C/C++ to Vscode, including features such as IntelliSense and debugging
+* hide-gitignored - hide files from the file Explorer that are ignored by your workspace's .gitignore files
+* Native Debug - native VSCode debugger. Supports both GDB and LLDB
+
+Clone the project and open vscode (on the project) and lets configure it.
+
+### Autocomplete
+
+1. Go to c_cpp_proprites.json
+2. Replace "/home/rhydon/workspace/buildroot-2020.02.4/output/build/linux-4.19.91" with yours kernel dir path
+3. Make sure that "/usr/lib/gcc/x86_64-linux-gnu/7/include" exists too otherwise change the version to yours it should works too
+ 
+### Debugging
+
+1. Go to debug.sh
+2. Change VM_USERNAME, VM_PASSWORD and VM_SNAPSHOT to yours 
+3. Change KERNEL_MODULE_NAME to yours kernel module name
+4. Change BUILDROOT_IMAGES_PATH to the dir that contains the kernel(bzImage) and the rootfs(rootfs.qcow2 in builtroot)
+
+If the debbuging is stuck or doesn't loading successfully try:
+
+* sudo pkill -9 qemu
+* sudo pkill -9 debug.sh
+* sudo pkill -9 gdb
+
+I left in debug.sh the .data and .bss sections commented. When your driver will use this sections undone the comments and remove the echo that use add-symbol-path with just the .text section.
+
 
