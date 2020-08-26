@@ -66,6 +66,8 @@ If the debbuging is stuck or doesn't loading successfully try:
 
 I left in debug.sh the .data and .bss sections commented. When your driver will use this sections undone the comments and remove the echo which using add-symbol-path only with the .text section.
 
-Now you can enjoy from a good linux kernel development session with autocomplete and debugging
+Make sure that you change the kernel sources\include dir in the Makefile.
+
+Now you can enjoy from a good linux kernel development session with autocomplete and debugging.
 
 
