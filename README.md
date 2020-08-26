@@ -53,10 +53,11 @@ Clone the project and open vscode(on the project) and lets start to configure it
  
 ### Debugging
 
-1. Go to debug.sh
-2. Change VM_USERNAME, VM_PASSWORD and VM_SNAPSHOT to yours 
-3. Change KERNEL_MODULE_NAME to yours kernel module name
-4. Change BUILDROOT_IMAGES_PATH to the dir that contains the kernel(bzImage) and the rootfs(rootfs.qcow2 in builtroot)
+1. Sudo apt install sshpass
+2. Go to debug.sh
+3. Change VM_USERNAME, VM_PASSWORD and VM_SNAPSHOT to yours 
+4. Change KERNEL_MODULE_NAME to yours kernel module name
+5. Change BUILDROOT_IMAGES_PATH to the dir that contains the kernel(bzImage) and the rootfs(rootfs.qcow2 in builtroot)
 
 If the debbuging is stuck or doesn't loading successfully try:
 
