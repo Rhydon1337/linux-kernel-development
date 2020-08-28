@@ -14,14 +14,14 @@ When I was searching for an IDE, there were three guidelines in my mind:
 3. Build system and debugging support - I think that compiling the kernel module from your IDE will make your development time shorter. In my opinion, if you really want to maximize your development setup, then debugging and testing automations are necessities. 
 
 ### Why not Atom
-Atom is a really nice open source text editor, but not a complete IDE. Atom autocompelete plugins are very poor, I did some searches in google and I've found out that atom community support is not so wide. I didn't even looked for a build system or debugging support.
+Atom is a really nice open source text editor, but not a complete IDE. Atom autocompelete plugins are very poor, I did some searches in google and I've found out that atom community support is not so wide. I didn't even look for a build system or debugging support.
 
 ### Why not Sublime
 Sublime is excellent text editor and code browser, but it didn't suit my requirements. Sublime has a lot of plugins and really nice autocompletion and symbols search engines. In addition, sublime is vert comfortable for code browsing. However, sublime projects and build system are very poor and limited, sublime autocompletion plugins were fine but I wasn't able to adjust them to kernel autocompletion successfuly.
 
 ### Why not Eclipse
 Eclipse is very stable and known IDE, Eclipse supports kernel browsing and autocompletion but Eclipse C indexer is really slow.
-Eclipse build system and debugging support are known to everyone, Personally, I don't like eclipse GUI but it's a matter of teste. Eclipse came really close to my demands but it's GUI is not so modern and its autocompletion wasn't so good and really slow.
+Eclipse build system and debugging support are known to everyone, Personally, I don't like eclipse GUI but it's a matter of teste. Eclipse came really close to my demands but its GUI is not so modern and its autocompletion wasn't so good and really slow.
 
 ### Why Vscode
 Vscode is very known and modern IDE, vscode autocompletion is configurable and fast. Vscode GUI is modern and rich and has a lot of plugins. Vscode comes with really good build system and debugging support (debugging plugins too).
