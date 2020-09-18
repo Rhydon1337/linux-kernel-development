@@ -8,8 +8,8 @@ all: debug
 release:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
+ccflags-y := -g -Og -O0
 debug:
-	CFLAGS=-g
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
