@@ -28,16 +28,17 @@ do
     sleep 2
 done
 
-echo "Moving the driver to the vm"
-sshpass -p "$VM_PASSWORD" scp -P $SSH_PORT -r $CWD $VM_USERNAME@localhost:$REMOTE_DIR
+echo "[+] VM: initialized"
 
+echo "[+] moving kernel module $KERNEL_MODULE_NAME to the vm"
+sshpass -p "$VM_PASSWORD" scp -P $SSH_PORT -r $CWD $VM_USERNAME@localhost:$REMOTE_DIR
 sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost "insmod $REMOTE_DIR/$KERNEL_MODULE_NAME.ko"
 
 rm -f ~/.gdbinit
 text_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.text`
-#data_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.data`
-#bss_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.bss`
-#echo "add-symbol-file $KERNEL_MODULE_NAME.ko $text_address -s .data $data_address -s .bss $bss_address" > ~/.gdbinit
+# data_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.data`
+# bss_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.bss`
+# echo "add-symbol-file $KERNEL_MODULE_NAME.ko $text_address -s .data $data_address -s .bss $bss_address" > ~/.gdbinit
 
 echo "add-symbol-file $KERNEL_MODULE_NAME.ko $text_address" > ~/.gdbinit
 echo "file ./$KERNEL_MODULE_NAME.ko" >> ~/.gdbinit
