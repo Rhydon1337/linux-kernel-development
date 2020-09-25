@@ -22,9 +22,10 @@ else
 fi
 
 # Busy loop for waiting for the vm to startup and setup ssh
-until sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT -q $VM_USERNAME@localhost exit
+until sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT -o StrictHostKeyChecking=no -q $VM_USERNAME@localhost exit
 do 
-echo "Waiting for vm setup"
+	echo "[+] waiting for the VM to initialize"
+    sleep 2
 done
 
 echo "Moving the driver to the vm"
