@@ -14,7 +14,7 @@
 			],
 		},{
 			"type": "shell",
-			"label": "build release using make",
+            "label": "build (release)",
 			"command": "/usr/bin/make",
 			"args": ["release"],
 			"options": {
@@ -25,7 +25,7 @@
 			],
 		},{
 			"type": "shell",
-			"label": "build debug using make",
+			"label": "build (debug)",
 			"command": "/usr/bin/make",
 			"args": ["debug"],
 			"options": {
@@ -41,7 +41,7 @@
 		},
 		{
 			"type": "shell",
-			"label": "preDebug setup",
+			"label": "deploy",
 			"isBackground": true,
 			"command": "/bin/bash",
 			"args": ["-c", "sudo ./debug.sh"],
@@ -66,8 +66,31 @@
 				}
 			],
 			"dependsOn": [
-				"build debug using make"
+				"clean",
+				"build (debug)"
 			]
-		}
+		},
+		{
+			"type": "shell",
+			"label": "debug",
+			"isBackground": true,
+			"command": "gnome-terminal",
+			"args": [
+				"--working-directory",
+				"${workspaceFolder}",
+				"-e",
+				"\"gdb -ex 'set architecture i386:x86-64:intel' -ex 'target remote :1234'\""
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+                "kind": "build",
+                "isDefault": true
+            }
+		},
 	]
 }
