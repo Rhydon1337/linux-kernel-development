@@ -35,5 +35,6 @@
         "**/Module.symvers": true,
         "**/Mkfile.old": true,
         "**/dkms.conf": true,
+        "**/.gdb_history": true,
     }
 }
