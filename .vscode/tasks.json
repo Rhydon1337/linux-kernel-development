@@ -42,15 +42,18 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		},
 		{
 			"type": "shell",
-			"label": "deploy",
+			"label": "debug",
 			"command": "/bin/bash",
 			"args": [
 				"-c",
-				"gksudo ./deploy.sh"
+				"sudo ./debug.sh"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
@@ -73,30 +76,9 @@
 				}
 			],
 			"dependsOn": [
-				"clean",
 				"build (debug)"
 			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"type": "shell",
-			"label": "debug",
-			"isBackground": true,
-			"command": "/usr/bin/dbus-launch",
-			"args": [
-				"/usr/bin/gnome-terminal",
-				"--working-directory",
-				"${workspaceFolder}",
-				"-e",
-				"\"gdb -ex 'set architecture i386:x86-64:intel' -ex 'target remote :1234'\""
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": []
+			
 		},
 		{
 			"type": "shell",
@@ -105,7 +87,7 @@
 			"command": "/bin/bash",
 			"args": [
 				"-c",
-				"gksudo pkill qemu && pkill gdb && pkill deploy.sh",
+				"sudo pkill qemu && pkill gdb && pkill debug.sh",
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
