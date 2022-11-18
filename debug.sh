@@ -21,7 +21,7 @@ then
 fi
 
 echo "[+] running QEMU emulation"
-setsid qemu-system-x86_64 -enable-kvm -cpu host -s -kernel bzImage -m 4096 -hda rootfs.qcow2 -append "root=/dev/sda rw nokaslr" -smp 4 -net nic,model=virtio -net user,hostfwd=tcp::$SSH_PORT-:22 -loadvm $SNAPSHOT_NAME &
+setsid ./start_qemu.sh -loadvm $SNAPSHOT_NAME &
 
 # Busy loop for waiting for the vm to startup and setup ssh
 until sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT -o StrictHostKeyChecking=no -q $VM_USERNAME@localhost exit
