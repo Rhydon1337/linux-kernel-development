@@ -1,10 +1,10 @@
-MODULENAME := kernel_development
+MODULENAME := KERNEL_MODULE_NAME_PLACEHOLDER
 
 obj-m += $(MODULENAME).o
 
 $(MODULENAME)-y += main.o
 
-KERNELDIR ?= ~/workspace/buildroot-2020.02.4/output/build/linux-4.19.91
+KERNELDIR ?= LINUX_SRC_PATH_PLACEHOLDER
 
 PWD       := $(shell pwd)
 

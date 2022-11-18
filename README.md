@@ -45,11 +45,20 @@ Install vscode, after the installation is complete, download these packages:
 
 Clone the project and open vscode(on the project) and lets start configuring it.
 
+
+Use `configure.py` to configure the project like so:
+
+python ./configure.py --linux-src /home/<user>/path/to/buildroot/output/build/linux-{version} 
+--gcc-include-path /usr/lib/gcc/x86_64-pc-linux-gnu/{gcc-version}/include --guest-root-password {qemu-vm-root-password}
+
+<details>
+<summary>You can also configure manually</summary>
+
 ### Autocompletion
 
 1. Go to c_cpp_properties.json
-2. Replace "/home/rhydon/workspace/buildroot-2020.02.4/output/build/linux-4.19.91" with yours kernel dir path
-3. Make sure that "/usr/lib/gcc/x86_64-linux-gnu/7/include" exists too otherwise change the version to yours it should works too
+2. Replace "LINUX_SRC_PATH_PLACEHOLDER" with yours kernel dir path
+3. Replace "GCC_INCLUDE_PATH_PLACEHOLDER" with your gcc header files (mine is "/usr/lib/gcc/x86_64-linux-gnu/7/include")
  
 ### Debugging
 
@@ -57,7 +66,9 @@ Clone the project and open vscode(on the project) and lets start configuring it.
 2. Go to debug.sh
 3. Change VM_USERNAME, VM_PASSWORD and VM_SNAPSHOT to yours 
 4. Change KERNEL_MODULE_NAME to yours kernel module name
-5. Change BUILDROOT_IMAGES_PATH to the dir that contains the kernel(bzImage) and the rootfs(rootfs.qcow2 in builtroot)
+5. Change BUILDROOT_IMAGES_PATH to the dir that contains the kernel(bzImage) and the rootfs(rootfs.qcow2 in buildroot)
+
+</details>
 
 If the debbuging is stuck or isn't loading successfully try:
 
