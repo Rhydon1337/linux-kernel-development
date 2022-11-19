@@ -34,6 +34,12 @@ for pid in $(pidof -x debug.sh); do
     fi 
 done
 
+
+# Qemu processes need to shut down
+# after being killed
+# using the good ol' sleep as a hacky (but effective) patch
+sleep 1
+
 echo "loadvm $SNAPSHOT_NAME" > $SNAPSHOT_CMDLINE_FILE
 
 echo "[+] running QEMU emulation"
