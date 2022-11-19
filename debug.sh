@@ -58,9 +58,12 @@ echo "[+] loading $KERNEL_MODULE_NAME to the kernel"
 sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost "insmod $REMOTE_DIR/$KERNEL_MODULE_NAME.ko"
 
 echo "[+] retrieving $KERNEL_MODULE_NAME sections"
-text_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.text`
-data_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.data`
-bss_address=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.bss`
+init_text_addr=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.init.text`
+exit_text_addr=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.exit.text`
+
+text_addr=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.text`
+data_addr=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.data`
+bss_addr=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.bss`
 
 
 GDBINIT_PATH=$HOME_DIRECTORY/.gdbinit
@@ -75,19 +78,26 @@ else
 fi
 
 section_flags=""
-if [ -z "$data_address" ]; 
+
+if [ -z "$text_addr" ]; 
+    then : # no text section
+else
+    section_flags+=" -s .text ${text_addr}"
+fi
+
+if [ -z "$data_addr" ]; 
     then : # no data section
 else
-    section_flags+=" -s .data ${data_address}"
+    section_flags+=" -s .data ${data_addr}"
 fi
 
-if [ -z "$bss_address" ];
+if [ -z "$bss_addr" ];
     then : # no bss section 
 else
-    section_flags+=" -s .bss ${bss_address}"
+    section_flags+=" -s .bss ${bss_addr}"
 fi
 
+echo source ~/.gdbinit-gef.py >> ~/.gdbinit
 echo "set disassembly-flavor intel" >> $GDBINIT_PATH
 echo "file LINUX_SRC_PATH_PLACEHOLDER/vmlinux" >> $GDBINIT_PATH
-echo "add-symbol-file $CWD/$KERNEL_MODULE_NAME.ko $text_address ${section_flags}" >> $GDBINIT_PATH
-echo "break init_module" >> $GDBINIT_PATH
+echo "add-symbol-file $CWD/$KERNEL_MODULE_NAME.ko -s .init.text $init_text_addr -s .exit.text $exit_text_addr ${section_flags}" >> $GDBINIT_PATH
