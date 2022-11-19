@@ -9,9 +9,10 @@ VM_PASSWORD="ROOT_USER_PASSWORD_PLACEHOLDER"
 KERNEL_MODULE_NAME="KERNEL_MODULE_NAME_PLACEHOLDER"
 
 CWD=`pwd`
-REMOTE_DIR="/root/"`basename $CWD`
+REMOTE_DIR="/"`basename $CWD`
 SSH_PORT=5555
 SNAPSHOT_NAME="SNAPSHOT_NAME_PLACEHOLDER"
+SNAPSHOT_CMDLINE_FILE="loadvm_cmdline"
 
 cd $BUILDROOT_IMAGES_PATH
 
@@ -20,17 +21,22 @@ then
     pkill -9 qemu
 fi
 
+echo "loadvm $SNAPSHOT_NAME" > $SNAPSHOT_CMDLINE_FILE
+
 echo "[+] running QEMU emulation"
-setsid ./start_qemu.sh -loadvm $SNAPSHOT_NAME &
+setsid ./start-qemu.sh &
 
 # Busy loop for waiting for the vm to startup and setup ssh
-until sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT -o StrictHostKeyChecking=no -q $VM_USERNAME@localhost exit
+until sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT -o StrictHostKeyChecking=no $VM_USERNAME@localhost exit
 do 
     echo "[+] waiting for the VM to initialize"
     sleep 1
 done
 
 echo "[+] VM: initialized"
+
+echo "[+] reverting to snapshot: $SNAPSHOT_NAME"
+socat OPEN:$SNAPSHOT_CMDLINE_FILE unix-connect:qemu-monitor-socket
 
 echo "[+] moving kernel module $KERNEL_MODULE_NAME to the vm"
 sshpass -p "$VM_PASSWORD" scp -P $SSH_PORT -r $CWD $VM_USERNAME@localhost:$REMOTE_DIR
