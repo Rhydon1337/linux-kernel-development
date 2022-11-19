@@ -21,6 +21,19 @@ then
     pkill -9 qemu
 fi
 
+
+if pgrep "gdb" > /dev/null
+then
+    pkill -9 gdb
+fi
+
+
+for pid in $(pidof -x debug.sh); do
+    if [ $pid != $$ ]; then
+        kill -9 $pid
+    fi 
+done
+
 echo "loadvm $SNAPSHOT_NAME" > $SNAPSHOT_CMDLINE_FILE
 
 echo "[+] running QEMU emulation"
