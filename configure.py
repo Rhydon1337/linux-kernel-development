@@ -47,7 +47,8 @@ def main():
                                        (BUILDROOT_IMAGES_PATH_PLACEHOLDER, images_path),
                                        (ROOT_USER_PASSWORD_PLACEHOLDER, args.guest_root_password),
                                        (KERNEL_MODULE_NAME_PLACEHOLDER, args.module_name),
-                                       (SNAPSHOT_NAME_PLACEHOLDER, args.snapshot)])
+                                       (SNAPSHOT_NAME_PLACEHOLDER, args.snapshot),
+                                       (LINUX_SRC_PATH_PLACEHOLDER, args.linux_src)])
     inplace_change(MAKEFILE_PATH, [(KERNEL_MODULE_NAME_PLACEHOLDER, args.module_name),
                                    (LINUX_SRC_PATH_PLACEHOLDER, args.linux_src)])
 
