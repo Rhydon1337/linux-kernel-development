@@ -20,26 +20,19 @@ cd $BUILDROOT_IMAGES_PATH
 if pgrep "qemu" > /dev/null
 then
     pkill -9 qemu
+    while pgrep "qemu" > /dev/null; do
+        sleep 0.1
+    done
 fi
 
 
 if pgrep "gdb" > /dev/null
 then
     pkill -9 gdb
+    while pgrep "gdb" > /dev/null; do
+        sleep 0.1
+    done
 fi
-
-
-for pid in $(pidof -x debug.sh); do
-    if [ $pid != $$ ]; then
-        kill -9 $pid
-    fi 
-done
-
-
-# Qemu processes need to shut down
-# after being killed
-# using the good ol' sleep as a hacky (but effective) patch
-sleep 1
 
 echo "loadvm $SNAPSHOT_NAME" > $SNAPSHOT_CMDLINE_FILE
 
