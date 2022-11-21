@@ -97,7 +97,7 @@ else
     section_flags+=" -s .bss ${bss_addr}"
 fi
 
-echo source ~/.gdbinit-gef.py >> ~/.gdbinit
+echo "source ~/.gdbinit-gef.py" >> $GDBINIT_PATH
 echo "set disassembly-flavor intel" >> $GDBINIT_PATH
 echo "file LINUX_SRC_PATH_PLACEHOLDER/vmlinux" >> $GDBINIT_PATH
 echo "add-symbol-file $CWD/$KERNEL_MODULE_NAME.ko -s .init.text $init_text_addr -s .exit.text $exit_text_addr ${section_flags}" >> $GDBINIT_PATH
