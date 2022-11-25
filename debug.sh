@@ -2,17 +2,17 @@
 trap "" 0 1 2 3 9 13 15
 
 # User configuration
-HOME_DIRECTORY="HOME_DIRECTORY_PLACEHOLDER"
-BUILDROOT_IMAGES_PATH="IMAGES_DIRECTORY_PLACEHOLDER"
+HOME_DIRECTORY="/home/rhydon"
+BUILDROOT_IMAGES_PATH="$HOME_DIRECTORY/workspace/buildroot-2020.02.4/output/images"
 
 VM_USERNAME="root"
-VM_PASSWORD="ROOT_USER_PASSWORD_PLACEHOLDER"
-KERNEL_MODULE_NAME="KERNEL_MODULE_NAME_PLACEHOLDER"
+VM_PASSWORD="123456"
+KERNEL_MODULE_NAME="kernel_development"
 
 CWD=`pwd`
 REMOTE_DIR="/"`basename $CWD`
 SSH_PORT=5555
-SNAPSHOT_NAME="SNAPSHOT_NAME_PLACEHOLDER"
+SNAPSHOT_NAME="first_snapshot"
 SNAPSHOT_CMDLINE_FILE="loadvm_cmdline"
 
 cd $BUILDROOT_IMAGES_PATH
@@ -99,5 +99,5 @@ fi
 
 echo "source ~/.gdbinit-gef.py" >> $GDBINIT_PATH
 echo "set disassembly-flavor intel" >> $GDBINIT_PATH
-echo "file LINUX_SRC_PATH_PLACEHOLDER/vmlinux" >> $GDBINIT_PATH
+echo "file /home/rhydon/workspace/buildroot-2020.02.4/output/build/linux-4.19.91/vmlinux" >> $GDBINIT_PATH
 echo "add-symbol-file $CWD/$KERNEL_MODULE_NAME.ko -s .init.text $init_text_addr -s .exit.text $exit_text_addr ${section_flags}" >> $GDBINIT_PATH

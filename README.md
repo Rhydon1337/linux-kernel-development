@@ -61,8 +61,8 @@ python ./configure.py --linux-src /home/<user>/path/to/buildroot/output/build/li
 ### Autocompletion
 
 1. Go to c_cpp_properties.json
-2. Replace "LINUX_SRC_PATH_PLACEHOLDER" with yours kernel dir path
-3. Replace "GCC_INCLUDE_PATH_PLACEHOLDER" with your gcc header files (mine is "/usr/lib/gcc/x86_64-linux-gnu/7/include")
+2. Replace "/home/rhydon/workspace/buildroot-2020.02.4/output/build/linux-4.19.91" with yours kernel dir path
+3. Replace "/usr/lib/gcc/x86_64-linux-gnu/7/include" with your gcc header files
  
 ### Debugging Fields
 

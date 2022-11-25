@@ -2,14 +2,13 @@ import argparse
 import os
 from typing import List, Tuple
 
-GCC_INCLUDE_PATH_PLACEHOLDER = "GCC_INCLUDE_PATH_PLACEHOLDER"
-LINUX_SRC_PATH_PLACEHOLDER = "LINUX_SRC_PATH_PLACEHOLDER"
-ROOT_USER_PASSWORD_PLACEHOLDER = "ROOT_USER_PASSWORD_PLACEHOLDER"
-HOME_DIRECTORY_PLACEHOLDER = "HOME_DIRECTORY_PLACEHOLDER"
-HOME_DIRECTORY_PLACEHOLDER="HOME_DIRECTORY_PLACEHOLDER"
-BUILDROOT_IMAGES_PATH_PLACEHOLDER="IMAGES_DIRECTORY_PLACEHOLDER"
-KERNEL_MODULE_NAME_PLACEHOLDER="KERNEL_MODULE_NAME_PLACEHOLDER"
-SNAPSHOT_NAME_PLACEHOLDER="SNAPSHOT_NAME_PLACEHOLDER"
+GCC_INCLUDE_PATH_PLACEHOLDER = "/usr/lib/gcc/x86_64-linux-gnu/7/include"
+LINUX_SRC_PATH_PLACEHOLDER = "/home/rhydon/workspace/buildroot-2020.02.4/output/build/linux-4.19.91"
+ROOT_USER_PASSWORD_PLACEHOLDER = "123456"
+HOME_DIRECTORY_PLACEHOLDER="/home/rhydon"
+BUILDROOT_IMAGES_PATH_PLACEHOLDER="$HOME_DIRECTORY/workspace/buildroot-2020.02.4/output/images"
+KERNEL_MODULE_NAME_PLACEHOLDER="kernel_development"
+SNAPSHOT_NAME_PLACEHOLDER="first_snapshot"
 
 C_CPP_PROPERTIES_PATH = ".vscode/c_cpp_properties.json"
 DEBUG_SCRIPT_PATH = "debug.sh"
@@ -43,12 +42,13 @@ def main():
     images_path = os.path.join(os.path.dirname(os.path.dirname(args.linux_src)), "images")
 
     inplace_change(C_CPP_PROPERTIES_PATH, [(LINUX_SRC_PATH_PLACEHOLDER, args.linux_src), (GCC_INCLUDE_PATH_PLACEHOLDER, args.gcc_include_path)])
-    inplace_change(DEBUG_SCRIPT_PATH, [(HOME_DIRECTORY_PLACEHOLDER, home_directory), 
+    inplace_change(DEBUG_SCRIPT_PATH, [(LINUX_SRC_PATH_PLACEHOLDER, args.linux_src),
+                                       (HOME_DIRECTORY_PLACEHOLDER, home_directory), 
                                        (BUILDROOT_IMAGES_PATH_PLACEHOLDER, images_path),
                                        (ROOT_USER_PASSWORD_PLACEHOLDER, args.guest_root_password),
                                        (KERNEL_MODULE_NAME_PLACEHOLDER, args.module_name),
                                        (SNAPSHOT_NAME_PLACEHOLDER, args.snapshot),
-                                       (LINUX_SRC_PATH_PLACEHOLDER, args.linux_src)])
+                                       ])
     inplace_change(MAKEFILE_PATH, [(KERNEL_MODULE_NAME_PLACEHOLDER, args.module_name),
                                    (LINUX_SRC_PATH_PLACEHOLDER, args.linux_src)])
 
