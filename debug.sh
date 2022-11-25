@@ -66,7 +66,7 @@ data_addr=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat
 bss_addr=`sshpass -p "$VM_PASSWORD" ssh -p $SSH_PORT $VM_USERNAME@localhost cat /sys/module/$KERNEL_MODULE_NAME/sections/.bss`
 
 
-GDBINIT_PATH=$HOME_DIRECTORY/.gdbinit
+GDBINIT_PATH=$BUILDROOT_IMAGES_PATH/.gdbinit
 
 if [ -f $GDBINIT_PATH.bak ]; then
     echo "[+] using an existing .gdbinit file"

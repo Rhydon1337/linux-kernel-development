@@ -50,13 +50,7 @@ Clone the project and open vscode(on the project) and lets start configuring it.
 1. sudo apt install sshpass
 2. wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py
 
-Use `configure.py` to configure the project like so:
 
-python ./configure.py --linux-src /home/<user>/path/to/buildroot/output/build/linux-{version} 
---gcc-include-path /usr/lib/gcc/x86_64-pc-linux-gnu/{gcc-version}/include --guest-root-password {qemu-vm-root-password}
-
-<details>
-<summary>You can also configure manually</summary>
 
 ### Autocompletion
 
@@ -74,10 +68,16 @@ python ./configure.py --linux-src /home/<user>/path/to/buildroot/output/build/li
 
 Make sure to change the kernel sources\include dir in the Makefile.
 
-</details>
+> You can use `configure.py` to automate the configuration prcoess in the following manner:
+>
+>`python ./configure.py --linux-src /home/<user>/path/to/buildroot/output/build/linux-{version} 
+>--gcc-include-path /usr/lib/gcc/x86_64-pc-linux-gnu/{gcc-version}/include --guest-root-password {qemu-vm-root-password}`
+
 
 ## Debugging
-You can debug with vscode directly or use gdb and run `target remote:1234` 
+You can debug with vscode directly or use `gdb -x home/<user>/path/to/buildroot/output/images/.gdbinit` and run `target remote:1234` 
+
+
 
 ### Debugging lkm_init (The module's main function)
 Setting a breakpoint at the start of the module's main function
