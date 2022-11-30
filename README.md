@@ -45,19 +45,53 @@ Install vscode, after the installation is complete, download these packages:
 
 Clone the project and open vscode(on the project) and lets start configuring it.
 
+## Project Configuration
+
+1. sudo apt install sshpass
+2. wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py
+
+
+
 ### Autocompletion
 
 1. Go to c_cpp_properties.json
 2. Replace "/home/rhydon/workspace/buildroot-2020.02.4/output/build/linux-4.19.91" with yours kernel dir path
-3. Make sure that "/usr/lib/gcc/x86_64-linux-gnu/7/include" exists too otherwise change the version to yours it should works too
+3. Replace "/usr/lib/gcc/x86_64-linux-gnu/7/include" with your gcc header files
  
-### Debugging
+### Debugging Fields
 
-1. Sudo apt install sshpass
-2. Go to debug.sh
-3. Change VM_USERNAME, VM_PASSWORD and VM_SNAPSHOT to yours 
-4. Change KERNEL_MODULE_NAME to yours kernel module name
-5. Change BUILDROOT_IMAGES_PATH to the dir that contains the kernel(bzImage) and the rootfs(rootfs.qcow2 in builtroot)
+
+1. Go to debug.sh
+2. Change VM_USERNAME, VM_PASSWORD and VM_SNAPSHOT to yours 
+3. Change KERNEL_MODULE_NAME to yours kernel module name
+4. Change BUILDROOT_IMAGES_PATH to the dir that contains the kernel(bzImage) and the rootfs(rootfs.qcow2 in buildroot)
+
+Make sure to change the kernel sources\include dir in the Makefile.
+
+> You can use `configure.py` to automate the configuration prcoess in the following manner:
+>
+>`python ./configure.py --linux-src /home/<user>/path/to/buildroot/output/build/linux-{version} 
+>--gcc-include-path /usr/lib/gcc/x86_64-pc-linux-gnu/{gcc-version}/include --guest-root-password {qemu-vm-root-password}`
+
+
+## Debugging
+You can debug with vscode directly or use `gdb -x home/<user>/path/to/buildroot/output/images/.gdbinit` and run `target remote:1234` 
+
+
+
+### Debugging lkm_init (The module's main function)
+Setting a breakpoint at the start of the module's main function
+is problematic. 
+
+In order to stop in such breakpoint it needs to be set before
+the module is inserted. GDB opposes this kind of behavior as
+the memory region in that time is unreachable.
+
+However, it can be done using symbols that exist regardless of
+the module - kernel functions.
+
+By adding a breakpoint to `_printk` for example you can stop
+at the module's main function and place more breakpoints afterwards.
 
 If the debbuging is stuck or isn't loading successfully try:
 
@@ -65,9 +99,6 @@ If the debbuging is stuck or isn't loading successfully try:
 * sudo pkill -9 debug.sh
 * sudo pkill -9 gdb
 
-I left in debug.sh the .data and .bss sections commented. When your driver will use this sections undone the comments and remove the echo which using add-symbol-path only with the .text section.
-
-Make sure to change the kernel sources\include dir in the Makefile.
 
 Now you can enjoy from a good linux kernel development session with autocompletion and debugging.
 
